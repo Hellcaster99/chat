@@ -1,6 +1,13 @@
-const { Server } = require("socket.io");
 
-const io = new Server({ cors: "https://chatapp-chinmay.vercel.app" });
+const httpsServer = require('https');
+
+const io = require("socket.io")(httpsServer, {
+    cors: {
+      origin: "https://chatapp-chinmay.vercel.app",
+      methods: ["GET", "POST"],
+      credentials:true
+    }
+  });
 
 let onlineUsers = [];
 
