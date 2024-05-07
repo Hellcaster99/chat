@@ -28,7 +28,7 @@ const ChatContextProvider = ({children, user}) => {
 
     //add online user
     useEffect(()=>{
-        const newSocket = io("https://chatappsocket.vercel.app");
+        const newSocket = io("https://chatappsocket-chinmay.vercel.app");
         setSocket(newSocket);
 
         return ()=>{

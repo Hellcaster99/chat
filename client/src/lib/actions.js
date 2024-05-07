@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseUrl = "https://chatappserver.vercel.app/api"
+export const baseUrl = "https://chatappserver-chinmay.vercel.app/api"
 
 export const postReq = async (url,body) => {
     const response = await axios.post(url,body);
