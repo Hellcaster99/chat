@@ -1,6 +1,6 @@
 const { Server } = require("socket.io");
 
-const io = new Server({ cors: "https://chatApp-chinmay.vercel.app" });
+const io = new Server({ cors: "https://chatapp-chinmay.vercel.app" });
 
 let onlineUsers = [];
 
