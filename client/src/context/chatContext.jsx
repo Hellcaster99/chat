@@ -26,46 +26,43 @@ const ChatContextProvider = ({children, user}) => {
     const recipient = useFetchRecipient(currentChat,user);
     const {setUser,reset} = useGlobalContext();
 
-    // //add online user
-    // useEffect(()=>{
-    //     const newSocket = io("https://chatappsocket-chinmay.vercel.app",{
-    //         withCredentials: true,
-    //         transports: ['websocket', 'polling', 'flashsocket']
-    //     });
-    //     setSocket(newSocket);
+    //add online user
+    useEffect(()=>{
+        const newSocket = io("http://localhost:3000");
+        setSocket(newSocket);
 
-    //     return ()=>{
-    //         newSocket.disconnect();
-    //     };
-    // },[user]);
+        return ()=>{
+            newSocket.disconnect();
+        };
+    },[user]);
 
-    // //show online users
-    // useEffect(()=>{
-    //     if(socket === null) return;
-    //     socket.emit("addNewUser",user?.email);
-    //     socket.on("getOnlineUsers",(res)=>{
-    //         setOnlineUsers(res);
-    //     })
-    //     return ()=>{
-    //         socket.off("getOnlineUsers");
-    //     }
-    // },[socket]);
+    //show online users
+    useEffect(()=>{
+        if(socket === null) return;
+        socket.emit("addNewUser",user?.email);
+        socket.on("getOnlineUsers",(res)=>{
+            setOnlineUsers(res);
+        })
+        return ()=>{
+            socket.off("getOnlineUsers");
+        }
+    },[socket]);
 
-    // //send messages
-    // useEffect(()=>{
-    //     if(socket===null)return;
-    //     const recipientId = currentChat?.members?.find((id)=> id !== user?.email);
-    //     socket.emit("sendMessage",{...newMessage, recipientId});
-    // },[newMessage])
+    //send messages
+    useEffect(()=>{
+        if(socket===null)return;
+        const recipientId = currentChat?.members?.find((id)=> id !== user?.email);
+        socket.emit("sendMessage",{...newMessage, recipientId});
+    },[newMessage])
 
-    // //receive messages
-    // useEffect(()=>{
-    //     if(socket===null)return;
-    //     socket.on("getMessage",(res)=>{
-    //         if(currentChat?._id !== res.chatId) return;
-    //         setMessages((prev)=>[...prev,res]);
-    //     })
-    // },[socket,currentChat])
+    //receive messages
+    useEffect(()=>{
+        if(socket===null)return;
+        socket.on("getMessage",(res)=>{
+            if(currentChat?._id !== res.chatId) return;
+            setMessages((prev)=>[...prev,res]);
+        })
+    },[socket,currentChat])
 
     useEffect(()=>{
         const getUserChats = async () => {
