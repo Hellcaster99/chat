@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import { postReq, getReq, baseUrl } from "../lib/actions";
 import { useGlobalContext } from "./AuthContext";
 import {io} from 'socket.io-client';
+import { useFetchRecipient } from "../hooks/useFetchRecipient";
 
 const ChatContext = createContext();
 
@@ -20,17 +21,48 @@ const ChatContextProvider = ({children, user}) => {
     const [messages, setMessages] = useState(null);
     const [messagesLoading, setMessagesLoading] = useState(false);
     const [socket,setSocket] = useState(null);
-
+    const [onlineUsers, setOnlineUsers] = useState([]);
+    const [newMessage,setNewMessage] = useState(null);
+    const recipient = useFetchRecipient(currentChat,user);
     const {setUser,reset} = useGlobalContext();
 
-    // useEffect(()=>{
-    //     const newSocket = io("http://localhost:3000");
-    //     setSocket(newSocket);
+    //add online user
+    useEffect(()=>{
+        const newSocket = io("https://chatappsocket.vercel.app");
+        setSocket(newSocket);
 
-    //     return ()=>{
-    //         newSocket.disconnect();
-    //     };
-    // },[user])
+        return ()=>{
+            newSocket.disconnect();
+        };
+    },[user]);
+
+    //show online users
+    useEffect(()=>{
+        if(socket === null) return;
+        socket.emit("addNewUser",user?.email);
+        socket.on("getOnlineUsers",(res)=>{
+            setOnlineUsers(res);
+        })
+        return ()=>{
+            socket.off("getOnlineUsers");
+        }
+    },[socket]);
+
+    //send messages
+    useEffect(()=>{
+        if(socket===null)return;
+        const recipientId = currentChat?.members?.find((id)=> id !== user?.email);
+        socket.emit("sendMessage",{...newMessage, recipientId});
+    },[newMessage])
+
+    //receive messages
+    useEffect(()=>{
+        if(socket===null)return;
+        socket.on("getMessage",(res)=>{
+            if(currentChat?._id !== res.chatId) return;
+            setMessages((prev)=>[...prev,res]);
+        })
+    },[socket,currentChat])
 
     useEffect(()=>{
         const getUserChats = async () => {
@@ -102,8 +134,8 @@ const ChatContextProvider = ({children, user}) => {
                 senderId: user?.email,
                 text: text
             });
-            
-            setMessages((prev)=>[...prev,response])
+            setNewMessage(response);
+            setMessages((prev)=>[...prev,response]);
 
             setText("");
         } catch (error) {
@@ -119,7 +151,7 @@ const ChatContextProvider = ({children, user}) => {
                 createChatLoading, createChatError,
                 updateChat, messages,
                 messagesLoading, currentChat,
-                sendMessages
+                sendMessages, onlineUsers
             }}
         >
             {children}
