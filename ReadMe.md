@@ -29,4 +29,6 @@
 
 7. Enter: node server.js, node index.js, npm run dev , on the 3 terminals respectively.
 
+8. Open http://localhost:5173
+
 ## Voila !
