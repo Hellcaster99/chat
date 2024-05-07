@@ -15,20 +15,20 @@
 
 ## Steps to follow:
 
-1. Create a new folder chatApp
+- Create a new folder chatApp
 
-2. Open terminal here
+- Open terminal here
 
-3. Enter: git clone https://github.com/Hellcaster99/chat.git
+- Enter:   git clone https://github.com/Hellcaster99/chat.git
 
-4. Open 2 more terminal tabs
+- Open 2 more terminal tabs in the same root folder.
 
-5. Enter: cd server, cd socket , cd client on the 3 terminals respectively.
+- Enter:   cd server , cd socket , cd client on the 3 terminals respectively.
 
-6. Enter: npm install , on all 3 terminals
+- Enter:   npm install , on all 3 terminals
 
-7. Enter: node server.js, node index.js, npm run dev , on the 3 terminals respectively.
+- Enter:   node server.js, node index.js, npm run dev , on the 3 terminals respectively.
 
-8. Open http://localhost:5173
+- Open http://localhost:5173
 
 ## Voila !
