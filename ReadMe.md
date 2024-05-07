@@ -9,9 +9,9 @@
 
 - Create Chats
 
-- Send Messages Real Time
+- Send/Receive messages in real time
 
-- Get Live Notifications for online users
+- Get live notifications for online users
 
 ## Steps to follow:
 
