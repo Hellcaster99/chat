@@ -27,6 +27,10 @@
 
 - Enter:   npm install , on all 3 terminals
 
+- Note: you need to create a .env file in server folder o create 2 environment variables.
+
+- Note: Those two variables are: MONGODB_URI (your mongodb connection string), and JWT_SECRET (for your token).
+
 - Enter:   node server.js, node index.js, npm run dev , on the 3 terminals respectively.
 
 - Open http://localhost:5173

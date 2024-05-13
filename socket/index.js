@@ -4,7 +4,7 @@ const io = new Server({ cors: "http://localhost:5173" });
 
 // const io = require("socket.io")(httpsServer, {
 //     cors: {
-//       origin: "https://chatapp-chinmay.vercel.app",
+//       origin: "",
 //       methods: ["GET", "POST"],
 //       credentials:true
 //     }
