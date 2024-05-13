@@ -13,7 +13,25 @@
 
 - Get live notifications for online users
 
-## Steps to follow:
+## Steps to follow (with docker) :
+
+- Create a new folder chatApp
+
+- Open terminal here
+
+- Enter in terminal:   git clone https://github.com/Hellcaster99/chat.git
+
+- Open your docker desktop app ( Important step )
+
+- Note: you need to create a .env file in server folder to create 2 environment variables.
+
+- Note: Those two variables are: MONGODB_URI (your mongodb connection string), and JWT_SECRET (for your token).
+
+- Enter in terminal: docker-compose up
+
+- In case you change some code, Enter: docker-compose up --build
+
+## Steps to follow (without docker) :
 
 - Create a new folder chatApp
 

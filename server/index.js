@@ -9,7 +9,6 @@ const app = express();
 require('dotenv').config();
 
 app.use(express.json());
-app.use(express.urlencoded());
 app.use(cors());
 app.use('/api/users',userRoute);
 app.use('/api/chats',chatRoute);
@@ -24,6 +23,13 @@ mongoose.connect(uri).then(()=>console.log("Connect to Mongo DB"))
 app.listen(PORT, (req,res)=>{
     console.log(`Server running on port ${5000}`);
 });
+
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*'); // Replace '*' with the specific origin you want to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     next();
+// });
 
 
 
